@@ -1,0 +1,45 @@
+{
+    "name": "rallienit/hmrcexrates",
+    "description": "HRMC Monthly Foreign Exchange Rates",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roni Reis",
+            "email": "rallienit@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1.0",
+        "monolog/monolog": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "RallienIT\\HmrcExRates\\": "src/"
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.17"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RallienIT\\HmrcExRatesTests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test:coverage": "php vendor/bin/pest --coverage --min=70 --colors=always",
+        "test:unit": "php vendor/bin/pest --exclude-group=integration --colors=always",
+        "test:parallel": "php vendor/bin/pest --parallel --exclude-group=integration --colors=always",
+        "test:integration": "php vendor/bin/pest --group=integration --colors=always",
+        "test": [
+            "@test:unit",
+            "@test:integration",
+            "@test:coverage"
+        ]
+    }
+}
