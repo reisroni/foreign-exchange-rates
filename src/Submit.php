@@ -20,7 +20,7 @@ if (isset($_GET['submit']))
             throw new DomainException('Currency code is empty.');
         }
 
-        $date_format = 'd/m/Y';
+        $date_format = 'Y-m';
         $date = date_create_immutable_from_format($date_format, $d);
         $currency = strtoupper($c);
 

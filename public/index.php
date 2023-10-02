@@ -3,6 +3,7 @@ require_once __DIR__.'/../src/Submit.php';
 
 /**
  * @var DateTime $date
+ * @var string $d
  * @var string $currency
  * @var float $rate
  * @var bool $result
@@ -21,12 +22,11 @@ require_once __DIR__.'/../src/Submit.php';
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 		<link rel="stylesheet" href="css/style.css">
 	</head>
-
 	<body>
 		<a class="visually-hidden-focusable" href="#content">Skip to main content</a>
 		<div class="container">
 			<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-				<a href="/projects/exrates/public/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" title="Homepage">
+				<a href="/projects/exrates/public/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" title="Homepage" rel="noopener noreferrer">
 					<span class="fs-4">HMRC Exchange Rates&nbsp;</span>
 					<i class="bi bi-currency-exchange"></i>
 				</a>
@@ -40,21 +40,23 @@ require_once __DIR__.'/../src/Submit.php';
 						<form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" method="get" autocomplete="off">
 							<div class="form-floating mb-3">
 							<?php if (empty($date)): ?>
-								<input type="text" class="form-control" id="fdate" name="d" value="" placeholder="DD/MM/YYYY" required="true">
+								<input type="month" class="form-control" id="fdate" name="d" value="" min="2016-01" max="<?= date('Y-m'); ?>" placeholder="YYYY-MM" required="true" pattern="[0-9]{4}-[0-9]{2}" title="YYYY-MM">
 							<?php else: ?>
-								<input type="text" class="form-control" id="fdate" name="d" value="<?= $date->format('d/m/Y'); ?>" placeholder="DD/MM/YYYY" required="true">
+								<input type="month" class="form-control" id="fdate" name="d" value="<?= htmlspecialchars($d); ?>" min="2016-01" max="<?= date('Y-m'); ?>" placeholder="YYYY-MM" required="true" pattern="[0-9]{4}-[0-9]{2}" title="YYYY-MM">
 							<?php endif; ?>
 								<label for="fdate">Date</label>
 							</div>
 							<div class="form-floating mb-3">
 							<?php if (empty($currency)): ?>
-								<input type="text" class="form-control" id="fcurrency" name="c" value="" placeholder="Currency" required="true">
+								<input type="text" class="form-control" id="fcurrency" name="c" value="" placeholder="Currency" required="true" pattern="[A-Za-z]{3}" title="Three letter currency code">
 							<?php else: ?>
-								<input type="text" class="form-control" id="fcurrency" name="c" value="<?= htmlspecialchars($currency); ?>" placeholder="Currency" required="true">
+								<input type="text" class="form-control" id="fcurrency" name="c" value="<?= htmlspecialchars($currency); ?>" placeholder="Currency" required="true" pattern="[A-Za-z]{3}" title="Three letter currency code">
 							<?php endif; ?>	
 								<label for="fcurrency">Currency code</label>
 							</div>
-							<button class="w-100 btn btn-lg btn-primary" type="submit" name="submit" value="true">Submit</button>
+							<div class="d-grid">
+								<button class="w-50 btn btn-lg btn-primary mx-auto" type="submit" name="submit" value="true">Submit</button>
+							</div>
 							<hr class="my-4">
 						</form>
 					</section>
@@ -66,11 +68,11 @@ require_once __DIR__.'/../src/Submit.php';
 						<?php if (FALSE === $result): ?>
 						<div class="card text-bg-danger">
 							<div class="card-body">
-								<p class="card-text"><?= htmlspecialchars($error_msg); ?></p>
+								<p class="card-text" role="alert"><?= htmlspecialchars($error_msg); ?></p>
 						<?php else: ?>
 						<div class="card">
 							<div class="card-body">
-								<h5 class="card-title"><?= $date->format('F') . ' ' . $date->format('Y'); ?>:</h5>
+								<h2 class="card-title"><?= $date->format('F') . ' ' . $date->format('Y'); ?>:</h2>
 								<p class="card-text">Currency units per £1 = <?= htmlspecialchars($rate) . ' ' . htmlspecialchars($currency); ?></p>
 						<?php endif; ?>
 							</div>
@@ -84,8 +86,8 @@ require_once __DIR__.'/../src/Submit.php';
 					<span class="mb-3 mb-md-0 text-body-secondary">&copy; <?= date("Y"); ?> Rallien IT</span>
 				</div>
 				<ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-					<li class="ms-3"><a class="text-body-secondary" href="https://github.com/reisrony/foreign-exchange-rates" target="_blank" title="github" rel="noreferrer"><i class="bi bi-github"></i></a></li>
-					<li class="ms-3"><a class="text-body-secondary" href="https://bitbucket.org/reisrony/foreign-exchange-rates" target="_blank" title="Bitbucket" rel="noreferrer"><i class="bi bi-git"></i></a></li>
+					<li class="ms-3"><a class="text-body-secondary" href="https://github.com/reisrony/foreign-exchange-rates" target="_blank" title="github" rel="noopener noreferrer"><i class="bi bi-github"></i></a></li>
+					<li class="ms-3"><a class="text-body-secondary" href="https://bitbucket.org/reisrony/foreign-exchange-rates" target="_blank" title="Bitbucket" rel="noopener noreferrer"><i class="bi bi-git"></i></a></li>
 				</ul>
 			</footer>
 		</div>
