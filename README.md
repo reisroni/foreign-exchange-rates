@@ -7,6 +7,8 @@ Check the foreign exchange monthly rates from HMRC.
 
 [HM Revenue & Customs](https://www.gov.uk/government/collections/exchange-rates-for-customs-and-vat)
 
+<img src="assets/exrates.png" alt="Exchange Rates"><br>
+
 ----
 
 ## Getting Started
@@ -42,7 +44,9 @@ Or Download the latest archive and unzip it.
 composer install
 ```
 
-- Launch in a browser the web-server corresponding URL (e.g. `http://localhost/public/index.php`)
+- Launch the web-server
+
+- In a browser go to the web-server URL (e.g. `http://localhost/public/index.php`)
 
 ## Tests
 
